@@ -5,15 +5,18 @@
 ## - makeCacheMatrix: get function vector used by cacheSolve.
 ## - cacheSolve: get inverse of a matrix. use with makeCacheMatrix.
 ## 
-## Examples
+## How to USE:
 ##   x <- matrix(c(1,2,3,4), nrow=2, ncol=2)
 ##   m <- makeCacheMatrix(x)
 ##   cacheSolve(m) # first call
 ##   cacheSolve(m) # second call, "getting cached data"
 
 
-# create function vector that get/set a matrix, 
-# and cached inverse of the matrix.
+# create a vector of functions that: 
+# * get a matrix
+# * set a matrix
+# * set a inverse of the matrix
+# * get a (cached) inverse of the matrix 
 makeCacheMatrix <- function(a = matrix()) {
   ia <- NULL
   setMatrix <- function(b) {
@@ -38,7 +41,7 @@ cacheSolve <- function(m, ...) {
     return(cache_ia)
   }
   a <- m$getMatrix()
-  ia <- solve(a)
+  ia <- solve(a,...)
   m$setInverseMatrix(ia)
   ia
 }
